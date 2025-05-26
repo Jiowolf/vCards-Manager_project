@@ -47,9 +47,12 @@ public class Program
                 case '2':
                     var input = new Input();
 
+                    Console.Write("\nFirstname :");
                     string firstName = Console.ReadLine();
+                    Console.Write("\nLastname :");
                     string lastName = Console.ReadLine();
-                    int tel = input.InputTel();
+                    string tel = input.InputTel();
+                    Console.Write("\nE-mail :");
                     string email = Console.ReadLine();
 
                     string addUp = AddCards(firstName,lastName,tel,email);
@@ -114,7 +117,7 @@ public class Program
         
     }
 
-    public static string AddCards(string firstName,string lastName, int tel, string email)
+    public static string AddCards(string firstName,string lastName, string tel, string email)
     {
         string vCard = $"BEGIN:VCARD\nFN:{firstName} {lastName}\nTEL:{tel}\nEMAIL:{email}\nEND:VCARD\n\n";
 
