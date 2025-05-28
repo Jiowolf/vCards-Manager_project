@@ -11,12 +11,12 @@ namespace Solution
     {
         public string InputTel()
         {
-            Regex regexTel = new Regex(@"^\+\d{1,3}\s\d{2,4}/\d{2}\.\d{2}\.\d{2}$");
+            Regex regexTel = new Regex(@"^\+33\d{9}$");
 
             while (true)
             {
-                Console.WriteLine("\nInput the telephone number with the european format :");
-                Console.WriteLine("+## ###/##.##.## OU +### ###/##.##.##");
+                Console.WriteLine("\nInput the telephone number with the French format :");
+                Console.WriteLine("+33#########");
 
                 string input = Console.ReadLine();
 
