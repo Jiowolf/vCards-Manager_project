@@ -3,14 +3,7 @@ using System.IO;
 using Solution;
 
 
-public class Vcard
-{
-    string? FirstName { get; set; }
-    string? LastName { get; set; }
-    int Telephone {  get; set; }
-    string? Email { get; set; }
 
-}
 public class Program
 {
     static void Main(string[] args)
@@ -27,7 +20,7 @@ public class Program
             Console.WriteLine("1: Display all contatcs");
             Console.WriteLine("2: Add a new contacts");
             Console.WriteLine("3: Search for a contact by name");
-            Console.WriteLine("4: Delete a conbtact");
+            Console.WriteLine("4: Delete a contact");
             Console.WriteLine("5: Export a contact into a separate file");
             Console.WriteLine("6: End program\n");
 
@@ -46,16 +39,17 @@ public class Program
 
                 case '2':
                     var input = new Input();
+                    var addcard = new VCardsObj();
 
                     Console.Write("\nFirstname :");
-                    string firstName = Console.ReadLine();
+                    addcard.FirstName = Console.ReadLine();
                     Console.Write("\nLastname :");
-                    string lastName = Console.ReadLine();
-                    string tel = input.InputTel();
+                    addcard.LastName = Console.ReadLine();
+                    addcard.Phone = input.InputTel();
                     Console.Write("\nE-mail :");
-                    string email = Console.ReadLine();
+                    addcard.Email = Console.ReadLine();
 
-                    string addUp = AddCards(firstName,lastName,tel,email);
+                    string addUp = AddCards(addcard);
 
                     //
 
@@ -117,9 +111,9 @@ public class Program
         
     }
 
-    public static string AddCards(string firstName,string lastName, string tel, string email)
+    public static string AddCards(VCardsObj vcard)
     {
-        string vCard = $"BEGIN:VCARD\nFN:{firstName} {lastName}\nTEL:{tel}\nEMAIL:{email}\nEND:VCARD\n\n";
+        string vCard = $"BEGIN:VCARD\nFN:{vcard.FirstName} {vcard.LastName}\nTEL:{vcard.Phone}\nEMAIL:{vcard.Email}\nEND:VCARD\n\n";
 
         return vCard;
     }
