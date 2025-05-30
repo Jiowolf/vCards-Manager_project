@@ -8,6 +8,9 @@ public class Program
 {
     static void Main(string[] args)
     {
+        string file = File.ReadAllText("contacts.vcf"); //read file et give string
+        
+
         Console.WriteLine("");
 
         Console.WriteLine("Hello There");
@@ -34,7 +37,7 @@ public class Program
                     break;
 
                 case '1':
-                    DisplayAllCards();
+                    DisplayAllCards(file);
                     break;
 
                 case '2':
@@ -56,7 +59,7 @@ public class Program
                     break;
 
                 case '3':
-
+                    Console.WriteLine(SearchCards(file));
                     break;
 
                 case '4':
@@ -77,38 +80,38 @@ public class Program
 
     }
 
-    public static void DisplayAllCards()
+    public static void DisplayAllCards(string file)
     {
-        string line = "";
-        try
-        {
-            string filePath = Path.Combine(AppContext.BaseDirectory, "contacts.vcf");
-            StreamReader sr = new StreamReader(filePath);
+        //string line = "";
+        //try
+        //{
+        //    string filePath = Path.Combine(AppContext.BaseDirectory, "contacts.vcf");
+        //    StreamReader sr = new StreamReader(filePath);
 
-            //line = sr.ReadLine();
+        //    //line = sr.ReadLine();
 
-            while (line != null)
-            {
-                Console.WriteLine(line);
-                line = sr.ReadLine();
-            }
-            if (line == null)
-            {
-                Console.WriteLine("Press Enter to confirm");
-            }
-            sr.Close();
-            Console.ReadLine();
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine("Exception: " + e.Message);
-        }
-        finally
-        {
-            Console.WriteLine("Finish displaying");
-        }
-
-        
+        //    while (line != null)
+        //    {
+        //        Console.WriteLine(line);
+        //        line = sr.ReadLine();
+        //    }
+        //    if (line == null)
+        //    {
+        //        Console.WriteLine("Press Enter to confirm");
+        //    }
+        //    sr.Close();
+        //    Console.ReadLine();
+        //}
+        //catch (IOException e)
+        //{
+        //    Console.WriteLine("Exception: " + e.Message);
+        //}
+        //finally
+        //{
+        //    Console.WriteLine("Finish displaying");
+        //}
+        Console.WriteLine("\n\n");
+        Console.WriteLine(file);
     }
 
     public static string AddCards(VCardsObj vcard)
@@ -118,13 +121,45 @@ public class Program
         return vCard;
     }
 
-    public static void SearchCards()
+    public static string SearchCards(string vcard)
     {
+        var toList = new CreateList();
 
+        List<VCardsObj> list = toList.VCardList(vcard);
+
+        list.Sort((a, b) => string.Compare(a.LastName, b.LastName, StringComparison.OrdinalIgnoreCase));
+
+        Console.WriteLine("\n\nWrite the last name you searching ");
+        string name = Console.ReadLine();
+
+        var found = false;
+        string person = "";
+
+        foreach(VCardsObj obj in list)
+        {
+            if (obj.LastName == name)
+            {
+               found = true;
+               person = $"\n\nFN:{obj.FirstName} {obj.LastName}\nTEL:{obj.Phone}\nEMAIL:{obj.Email}\n";
+            }
+            
+        }
+        if (found == false)
+        {
+            return "\n\nWe don't have that person or the name was wrong, Sorry";
+        }
+        else
+        {
+            return person;
+        }
     }
 
-    public static void DeleteCards()
+    public static void DeleteCards(string vcard)
     {
+        var toList = new CreateList();
+
+        List<VCardsObj> list = toList.VCardList(vcard);
+
 
     }
 
