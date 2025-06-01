@@ -160,6 +160,8 @@ public class Program
 
         List<VCardsObj> list = toList.VCardList(vcard);
 
+        var toDelete = SearchCards(vcard);
+
 
     }
 
